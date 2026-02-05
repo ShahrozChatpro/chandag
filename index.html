@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chanda Infinity 🌙</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --pink: #ff4d6d; 
+            --gold: #ffb703; 
+            --deep-navy: #020111;
+            --twilight: #3a1c71;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(to bottom, var(--twilight), var(--deep-navy));
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            transition: background 2s ease;
+        }
+
+        /* --- Starry Background Layer --- */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/123163/stars.png') repeat;
+            z-index: -2;
+            opacity: 0.5;
+        }
+
+        /* --- Slide Engine --- */
+        .container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            width: 85%;
+            max-width: 450px;
+            text-align: center;
+            display: none;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .slide.active { 
+            display: block; 
+            animation: slideIn 1s cubic-bezier(0.23, 1, 0.32, 1) forwards; 
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(50px) rotateX(-10deg); }
+            to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+        }
+
+        /* --- Custom Elements --- */
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: white; text-shadow: 0 0 20px var(--pink); }
+        h2 { color: var(--gold); margin-bottom: 15px; }
+        
+        .btn {
+            background: white;
+            color: var(--deep-navy);
+            border: none;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-top: 25px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .btn:hover { transform: scale(1.05); background: var(--pink); color: white; }
+
+        .vibe-list { text-align: left; font-size: 0.9rem; line-height: 1.8; margin: 15px 0; }
+
+        /* --- Mafia Identity Section --- */
+        .mafia-grid { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+        .no-btn { background: transparent; border: 1px solid white; color: white; opacity: 0.6; }
+
+        /* --- Floating Moon Animation --- */
+        .moon-icon { font-size: 5rem; filter: drop-shadow(0 0 20px var(--gold)); animation: floatMoon 4s infinite ease-in-out; }
+        @keyframes floatMoon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        /* --- Progress Bars --- */
+        .stat-label { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 5px; }
+        .progress-box { background: rgba(255,255,255,0.1); height: 8px; border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--pink); width: 0; transition: width 2.5s cubic-bezier(0.1, 1, 0.1, 1); }
+
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+    <div class="container">
+
+        <div class="slide active" id="s1">
+            <div class="moon-icon">🌙</div>
+            <h1>Fatima</h1>
+            <p style="margin-top: 15px; font-weight: 300;">Welcome to your digital sanctuary, Chanda.</p>
+            <button class="btn" onclick="go(2)">Open Connection</button>
+        </div>
+
+        <div class="slide" id="s2">
+            <h3 style="color: var(--gold); margin-bottom: 15px;">A Little Note...</h3>
+            <p id="typewriter" style="font-size: 1.1rem; min-height: 100px; font-style: italic;"></p>
+            <button class="btn" id="next2" style="display:none" onclick="go(3)">Continue →</button>
+        </div>
+
+        <div class="slide" id="s3">
+            <h2>The Vibe Check ✨</h2>
+            <div class="vibe-list">
+                🥰 Super cute <br>
+                🤍 Kind heart <br>
+                😂 Funny without trying <br>
+                👑 Strong like a queen <br>
+                😎 Mafia boss attitude <br>
+                🎵 Best fan of Sidhu Moose Wala
+            </div>
+            <button class="btn" onclick="go(4)">Next Protocol →</button>
+        </div>
+
+        <div class="slide" id="s4">
+            <h2 style="font-size: 1.5rem;">🚨 CRITICAL SECURITY 🚨</h2>
+            <p style="margin: 20px 0; opacity: 0.8;">Dangerous stickers & guns detected! Is this the real Mafia Boss?</p>
+            <div class="mafia-grid">
+                <button class="btn" onclick="go(5)">Yes, I'm the Boss. 😎</button>
+                <button class="btn no-btn" id="fake-btn" onmouseover="dodge()" onclick="alert('Liar! Your stickers already scared us.')">No, I'm a cat 🐱</button>
+            </div>
+        </div>
+
+        <div class="slide" id="s5">
+            <h2 id="scan-title">Syncing Soul...</h2>
+            <div id="radar" style="margin: 30px auto; width: 100px; height: 100px; border: 2px solid var(--pink); border-radius: 50%; animation: pulse 1.5s infinite;"></div>
+            <p id="scan-msg" style="font-size: 0.9rem; color: var(--pink);">Analyzing smile coordinates...</p>
+            <button class="btn" id="report-btn" style="display:none" onclick="go(6)">View Analysis</button>
+        </div>
+
+        <div class="slide" id="s6">
+            <h2 style="margin-bottom: 20px;">Analysis Complete ✅</h2>
+            
+            <div class="stat-label"><span>Moose Wala Fan Level</span><span>Legendary 🎵</span></div>
+            <div class="progress-box"><div class="progress-bar" id="b1"></div></div>
+
+            <div class="stat-label"><span>Dangerous Stickers Energy</span><span>Scared to Death 🔫</span></div>
+            <div class="progress-box"><div class="progress-bar" id="b2" style="background: var(--gold);"></div></div>
+
+            <div class="stat-label"><span>Lazy as a Snail</span><span>Confirmed 😴</span></div>
+            <div class="progress-box"><div class="progress-bar" id="b3"></div></div>
+
+            <button class="btn" onclick="go(7)">The Final Secret</button>
+        </div>
+
+        <div class="slide" id="s7">
+            <h1>Chanda 💖</h1>
+            <p style="font-weight: 300; line-height: 1.8;">You're a strong queen who loves sleeping, a lazy snail with a dangerous mafia heart, and the biggest Sidhu Moose Wala fan I know.</p>
+            <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; margin-top: 20px;">
+                <p style="color: var(--gold); font-weight: 700;">🎯 THE MISSION:</p>
+                <p style="font-size: 0.8rem;">To complete the 'Aashiqui' protocol, send 10 cute pics to the dev.</p>
+            </div>
+            <button class="btn" onclick="celebrate()">I Accept 💍</button>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        const audio = new Audio('music.mp3');
+        audio.loop = true;
+
+        function go(n) {
+            if(n === 2) {
+                audio.play();
+                startTypewriter();
+                document.body.style.background = "#1a0a1a";
+            }
+
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.getElementById('s' + n).classList.add('active');
+
+            if(n === 5) startRadar();
+            if(n === 6) {
+                document.body.style.background = "#020111";
+                setTimeout(() => {
+                    document.getElementById('b1').style.width = "100%";
+                    document.getElementById('b2').style.width = "98%";
+                    document.getElementById('b3').style.width = "100%";
+                }, 500);
+            }
+        }
+
+        function startTypewriter() {
+            const text = "They say the moon is beautiful, but they haven't seen your smile. You’re the real Chanda, the light Nana always saw in you. ❤️";
+            let i = 0;
+            const el = document.getElementById('typewriter');
+            el.innerHTML = ""; // Clear existing
+            function type() {
+                if (i < text.length) {
+                    el.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                } else {
+                    document.getElementById('next2').style.display = "inline-block";
+                }
+            }
+            type();
+        }
+
+        function dodge() {
+            const btn = document.getElementById('fake-btn');
+            btn.style.position = 'absolute';
+            btn.style.left = Math.random() * 80 + '%';
+            btn.style.top = Math.random() * 80 + '%';
+        }
+
+        function startRadar() {
+            const msgs = ["Detecting Sidhu Moose Wala Vibes...", "Warning: Dangerous Guns & Stickers...", "Confirming Laziness Level...", "Scan Complete!"];
+            let i = 0;
+            const interval = setInterval(() => {
+                document.getElementById('scan-msg').innerText = msgs[i];
+                i++;
+                if(i === msgs.length) {
+                    clearInterval(interval);
+                    document.getElementById('report-btn').style.display = 'inline-block';
+                    document.getElementById('radar').style.animation = "none";
+                    document.getElementById('radar').style.background = "var(--pink)";
+                }
+            }, 1800);
+        }
+
+        function celebrate() {
+            confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 }, colors: ['#ff4d6d', '#ffb703', '#ffffff'] });
+            alert("Mission Accepted! 📸 Your Mafia Boss status is now permanent.");
+        }
+    </script>
+</body>
+</html>
